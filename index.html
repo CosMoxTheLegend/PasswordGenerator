@@ -42,6 +42,7 @@
       background: #00aaff;
       color: white;
       cursor: pointer;
+      margin: 5px;
     }
     button:hover {
       background: #0077cc;
@@ -67,6 +68,7 @@
     <div class="output" id="result">Your password will appear here</div>
 
     <button onclick="generatePassword()">Generate Password</button>
+    <button onclick="copyToClipboard()">Copy to Clipboard</button>
   </div>
 
   <script>
@@ -104,6 +106,15 @@
         password += chars[Math.floor(Math.random() * chars.length)];
       }
       document.getElementById("result").textContent = password;
+    }
+
+    function copyToClipboard() {
+      const result = document.getElementById("result").textContent;
+      if (result && result !== "Your password will appear here" && result !== "Select at least one character set.") {
+        navigator.clipboard.writeText(result).then(() => {
+          alert("Password copied to clipboard!");
+        });
+      }
     }
   </script>
 </body>
