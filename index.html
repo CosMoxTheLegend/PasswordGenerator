@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    input[type=range] {
+      width: 100%;
+    }
+    .output {
+      margin: 20px 0;
+      font-size: 18px;
+      background: #333;
+      padding: 10px;
+      border-radius: 5px;
+      word-break: break-all;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background: #00aaff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0077cc;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+
+    <label>Password Length: <span id="length-display">12</span></label>
+    <input type="range" id="length" min="4" max="32" value="12" />
+
+    <label><input type="checkbox" id="uppercase" checked /> Include Uppercase</label>
+    <label><input type="checkbox" id="lowercase" checked /> Include Lowercase</label>
+    <label><input type="checkbox" id="numbers" checked /> Include Numbers</label>
+    <label><input type="checkbox" id="symbols" /> Include Symbols</label>
+
+    <div class="output" id="result">Your password will appear here</div>
+
+    <button onclick="generatePassword()">Generate Password</button>
+  </div>
+
+  <script>
+    const lengthSlider = document.getElementById("length");
+    const lengthDisplay = document.getElementById("length-display");
+    lengthSlider.addEventListener("input", () => {
+      lengthDisplay.textContent = lengthSlider.value;
+    });
+
+    function generatePassword() {
+      const length = parseInt(document.getElementById("length").value);
+      const includeUppercase = document.getElementById("uppercase").checked;
+      const includeLowercase = document.getElementById("lowercase").checked;
+      const includeNumbers = document.getElementById("numbers").checked;
+      const includeSymbols = document.getElementById("symbols").checked;
+
+      const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lower = "abcdefghijklmnopqrstuvwxyz";
+      const numbers = "0123456789";
+      const symbols = "!@#$%^&*()_+[]{}|;:,.<>?";
+
+      let chars = "";
+      if (includeUppercase) chars += upper;
+      if (includeLowercase) chars += lower;
+      if (includeNumbers) chars += numbers;
+      if (includeSymbols) chars += symbols;
+
+      if (chars.length === 0) {
+        document.getElementById("result").textContent = "Select at least one character set.";
+        return;
+      }
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += chars[Math.floor(Math.random() * chars.length)];
+      }
+      document.getElementById("result").textContent = password;
+    }
+  </script>
+</body>
+</html>
