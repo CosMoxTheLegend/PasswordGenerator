@@ -1,6 +1,8 @@
 # 🔐 Password Generator Web App
 
 A simple and responsive **Password Generator** web application.
+![image](https://github.com/user-attachments/assets/c30de7a7-08eb-4696-b055-0e2f7a5cb253)
+
 
 ## Features
 
